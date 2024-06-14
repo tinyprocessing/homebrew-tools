@@ -5,7 +5,7 @@ class Relish < Formula
   license "MIT"
 
   def install
-    bin.install "/bin/relish"
+    bin.install "bin/relish"
     pkgshare.install "relish"
   end
 
@@ -25,5 +25,6 @@ class Relish < Formula
     system "#{bin}/relish", "--version"
   end
 end
+
 
 
