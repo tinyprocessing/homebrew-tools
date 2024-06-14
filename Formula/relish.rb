@@ -1,18 +1,28 @@
 class Relish < Formula
   desc "Relish developer tool"
   homepage "https://github.com/tinyprocessing/relish"
-  url "https://github.com/tinyprocessing/relish/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "6b3c3949cfc7bba8d9f9a7b8e0c0788d57ac3e76174d0c1a1f69f35cf452d8f9"
+  url "https://github.com/tinyprocessing/relish/releases/download/1.0.0/relish.zip"
   license "MIT"
 
   def install
-    chmod 0755 "setup.sh"
-    system "setup.sh"
-    bin.install ".build/release/relish"
+    bin.install "/bin/relish"
+    pkgshare.install "relish"
   end
 
-  def post_install
-    system "relish environment setup"
+  def caveats
+    <<~EOS
+      To complete the setup of Relish, you need to copy the configuration files to your home directory:
+
+      cp -rf #{opt_pkgshare}/relish/ ~/.config/relish/
+
+      Additionally, please copy ~/.config/relish/Relish.plist to your project root folder and adjust the paths as necessary:
+
+      Change path to your projects in Relish.plist accordingly.
+    EOS
+  end
+
+  test do
+    system "#{bin}/relish", "--version"
   end
 end
 
